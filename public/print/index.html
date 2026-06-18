@@ -27,7 +27,7 @@
       }
 
       main {
-        width: min(980px, calc(100vw - 32px));
+        width: min(1080px, calc(100vw - 32px));
         margin: 0 auto;
         padding: 48px 0 72px;
       }
@@ -54,11 +54,19 @@
         font-size: 1.16rem;
       }
 
+      .section-title {
+        margin: 36px 0 12px;
+        font-size: 1rem;
+        color: #31513f;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
       .grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
         gap: 18px;
-        margin-top: 32px;
+        margin-top: 16px;
       }
 
       .card {
@@ -119,11 +127,12 @@
   </head>
   <body>
     <main>
-      <div class="eyebrow">KindBridge369 · v0.5 print shelf</div>
+      <div class="eyebrow">KindBridge369 · v0.6 print shelf</div>
       <h1>Free pages for kitchen-table help.</h1>
       <p class="lead">These standalone pages can be opened, filled in, printed, copied, translated, or shared. They do not need accounts, payments, tracking, or a backend.</p>
 
-      <section class="grid" aria-label="Printable KindBridge tools">
+      <h2 class="section-title">Core worksheets</h2>
+      <section class="grid" aria-label="Core printable KindBridge tools">
         <a class="card" href="pocket-plan.html">
           <div>
             <div class="icon">🧭</div>
@@ -158,6 +167,36 @@
             <p>A small one-page card for helping someone without taking over: listen, name the need, ask consent, choose one step.</p>
           </div>
           <span class="button">Open card</span>
+        </a>
+      </section>
+
+      <h2 class="section-title">v0.6 trust tools</h2>
+      <section class="grid" aria-label="Trust and verification tools">
+        <a class="card" href="quick-start.html">
+          <div>
+            <div class="icon">🌱</div>
+            <h2>Quick Start</h2>
+            <p>A gentle one-page flow for naming the need, choosing a bucket, gathering what helps, and choosing one step.</p>
+          </div>
+          <span class="button">Open guide</span>
+        </a>
+
+        <a class="card" href="privacy-boundaries.html">
+          <div>
+            <div class="icon">🛡️</div>
+            <h2>Privacy & Boundaries</h2>
+            <p>Keep help dignified: ask consent, write minimum notes, avoid private details, and keep choices with the person.</p>
+          </div>
+          <span class="button">Open sheet</span>
+        </a>
+
+        <a class="card" href="verification-log.html">
+          <div>
+            <div class="icon">✅</div>
+            <h2>Verification Log</h2>
+            <p>Track what was checked, when it was checked, and what remains unknown while building a local help map.</p>
+          </div>
+          <span class="button">Open log</span>
         </a>
       </section>
 
