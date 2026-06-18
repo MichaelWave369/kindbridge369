@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KindBridge369 Pocket Plan</title>
+    <style>
+      body { margin: 0; font-family: Arial, sans-serif; color: #10211b; background: #fbf7ed; line-height: 1.45; }
+      main { width: min(900px, calc(100vw - 32px)); margin: 0 auto; padding: 32px 0 56px; }
+      a { color: #17382e; font-weight: 700; }
+      h1 { margin: 8px 0 10px; font-size: clamp(2.4rem, 8vw, 4.8rem); line-height: 0.95; letter-spacing: -0.06em; }
+      .eyebrow { color: #3b6a58; font-size: 0.78rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; }
+      .lead { max-width: 680px; color: #394840; font-size: 1.08rem; }
+      .topbar { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; margin-bottom: 24px; }
+      button { border: 0; border-radius: 999px; padding: 12px 16px; color: #fffdf8; background: #17382e; font: inherit; font-weight: 900; cursor: pointer; }
+      .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 24px; }
+      .box { min-height: 138px; padding: 16px; border: 1px solid #ded8ca; border-radius: 20px; background: #fffdf8; }
+      .box strong { display: block; margin-bottom: 10px; font-size: 1.08rem; }
+      .lines { color: #78827b; line-height: 1.85; }
+      .receipt { grid-column: 1 / -1; border: 2px solid #17382e; }
+      .footer { margin-top: 16px; color: #5f6963; font-size: 0.92rem; }
+      @media (max-width: 760px) { .topbar, .grid { display: block; } .box { margin-top: 12px; } }
+      @media print { body { background: white; } main { width: 100%; padding: 0; } .back, .lead, button { display: none; } .box { border: 1px solid #000; border-radius: 0; break-inside: avoid; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="back"><a href="index.html">Back to Print Shelf</a></p>
+      <div class="topbar">
+        <div>
+          <div class="eyebrow">KindBridge369 Pocket Plan</div>
+          <h1>One tiny next step.</h1>
+          <p class="lead">Use this page to turn a hard moment into one simple plan. Fill it in, print it, copy it, or read it out loud with someone.</p>
+        </div>
+        <button onclick="window.print()">Print</button>
+      </div>
+
+      <section class="grid" aria-label="Pocket Plan worksheet">
+        <div class="box"><strong>1. What is happening?</strong><div class="lines">________________________________________<br />________________________________________<br />________________________________________</div></div>
+        <div class="box"><strong>2. Who or what place can help?</strong><div class="lines">________________________________________<br />________________________________________<br />________________________________________</div></div>
+        <div class="box"><strong>3. First step</strong><div class="lines">________________________________________<br />________________________________________<br />________________________________________</div></div>
+        <div class="box"><strong>4. Gather if possible</strong><div class="lines">________________________________________<br />________________________________________<br />________________________________________</div></div>
+        <div class="box"><strong>5. Plain words to use</strong><div class="lines">________________________________________<br />________________________________________<br />________________________________________</div></div>
+        <div class="box"><strong>6. Tiny promise for today</strong><div class="lines">________________________________________<br />________________________________________<br />________________________________________</div></div>
+        <div class="box receipt"><strong>Receipt line</strong><div class="lines">Date checked: ______________________<br />Person or place: ___________________<br />What I learned: ____________________<br />Next follow-up: ____________________</div></div>
+      </section>
+
+      <p class="footer">KindBridge369 is a discovery and organization tool. For expert questions, ask a qualified local professional.</p>
+    </main>
+  </body>
+</html>
