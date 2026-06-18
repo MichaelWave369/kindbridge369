@@ -2,8 +2,11 @@ import { useMemo, useState } from 'react';
 import {
   BookOpen,
   ClipboardCheck,
+  Copy,
+  FileText,
   HeartHandshake,
   Home,
+  MapPin,
   PawPrint,
   Printer,
   Search,
@@ -25,6 +28,7 @@ import {
 const sections = [
   { id: 'help', label: 'HelpFinder', icon: Search },
   { id: 'packets', label: 'KindPackets', icon: BookOpen },
+  { id: 'resources', label: 'Local Resources', icon: MapPin },
   { id: 'eldertech', label: 'ElderTech', icon: ShieldCheck },
   { id: 'pethelp', label: 'PetHelp', icon: PawPrint },
   { id: 'skills', label: 'SkillSeed', icon: Sprout },
@@ -45,7 +49,77 @@ const missionSteps = [
   },
   {
     title: 'Take one safe step',
-    copy: 'Use a script, print a packet, call a resource, or ask someone steady.'
+    copy: 'Use a plain starter, print a packet, call a resource, or ask someone steady.'
+  }
+];
+
+const resourceWorksheets = [
+  {
+    id: 'food-map',
+    title: 'Food help map',
+    emoji: '🥫',
+    useWhen: 'Build a town list of food pantries, community fridges, meal sites, school food support, and delivery options.',
+    placesToCheck: ['Public library', 'County social services', 'Churches and community centers', 'School district', 'Mutual aid groups'],
+    searchTerms: ['food pantry city county', 'free meals today city', 'community fridge city', 'SNAP application help county'],
+    ask: 'What days are you open, what should someone bring, and do you know another place if you are out of supplies?',
+    verify: ['Hours updated within 30 days', 'Address and phone checked', 'Eligibility or no-eligibility note', 'What to bring', 'Delivery or transportation note']
+  },
+  {
+    id: 'utility-map',
+    title: 'Utility help map',
+    emoji: '💡',
+    useWhen: 'Collect shutoff-prevention, payment plan, energy assistance, weatherization, and hardship contacts.',
+    placesToCheck: ['Utility provider website', 'County assistance office', '211-style resource line where available', 'Community action agency', 'Local churches or aid funds'],
+    searchTerms: ['utility assistance county', 'LIHEAP county state', 'energy bill help city', 'weatherization assistance county'],
+    ask: 'What options exist before shutoff, what documents are needed, and who else should someone call today?',
+    verify: ['Program name', 'Phone and web link', 'Deadline or season', 'Documents needed', 'Whether renters qualify']
+  },
+  {
+    id: 'elder-tech-map',
+    title: 'Elder tech helpers',
+    emoji: '🛡️',
+    useWhen: 'Find gentle tech help for scam checks, video calls, phones, email, printing, passwords, and portals.',
+    placesToCheck: ['Library classes', 'Senior center', 'Adult school', 'Trusted repair shop', 'Family helper list'],
+    searchTerms: ['senior tech help library city', 'computer help seniors city', 'digital literacy class county', 'scam prevention seniors'],
+    ask: 'Do you help with phones, email, scam checks, printing, or video calls, and is there a cost-free option?',
+    verify: ['No-pressure help', 'Appointment or walk-in', 'Accessibility notes', 'Language options', 'Privacy expectations']
+  },
+  {
+    id: 'pet-help-map',
+    title: 'Pet support map',
+    emoji: '🐾',
+    useWhen: 'Collect pet food, low-cost vaccines, spay/neuter, lost/found pages, temporary foster, and transport contacts.',
+    placesToCheck: ['Humane society', 'Animal control', 'Rescue groups', 'Pet food banks', 'Low-cost clinics'],
+    searchTerms: ['pet food bank city', 'low cost vet clinic city', 'lost found pets county', 'temporary pet foster help'],
+    ask: 'What support exists before surrender, and who should someone call next if you are full?',
+    verify: ['Species served', 'Service area', 'Urgent care limits', 'Foster or transport notes', 'Lost/found posting instructions']
+  }
+];
+
+const copyLines = [
+  {
+    id: 'call-resource',
+    title: 'Calling a resource',
+    context: 'Use when someone is nervous and needs a simple opening line.',
+    body: 'Hi, I am trying to find the right help and may not know the right words yet. Can I explain the situation briefly and ask what options or next places you recommend?'
+  },
+  {
+    id: 'confirm-details',
+    title: 'Confirming details',
+    context: 'Use before driving across town or sending someone to a location.',
+    body: 'Before I come in, can you confirm your hours, address, what documents to bring, and whether there are any eligibility rules I should know about?'
+  },
+  {
+    id: 'ask-next-place',
+    title: 'When they cannot help',
+    context: 'Use when the first place says no, is full, or is closed.',
+    body: 'Thank you for checking. Do you know the next best place to call today, and is there a phrase I should use when I contact them?'
+  },
+  {
+    id: 'helping-someone',
+    title: 'Helping someone else',
+    context: 'Use when sitting with another person and keeping their choice in the center.',
+    body: 'I can sit with you and help sort this into one next step, but you stay in charge of what we call, print, or share.'
   }
 ];
 
@@ -60,6 +134,7 @@ export default function App() {
   const [selectedHelpId, setSelectedHelpId] = useState(helpTopics[0].id);
   const [query, setQuery] = useState('');
   const [printTargetId, setPrintTargetId] = useState<string | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const selectedHelp = helpTopics.find((topic) => topic.id === selectedHelpId) ?? helpTopics[0];
 
@@ -77,6 +152,13 @@ export default function App() {
     );
   }, [query]);
 
+  const filteredResources = useMemo(() => {
+    if (!query.trim()) return resourceWorksheets;
+    return resourceWorksheets.filter((item) =>
+      contains(`${item.title} ${item.useWhen} ${item.searchTerms.join(' ')} ${item.placesToCheck.join(' ')}`, query)
+    );
+  }, [query]);
+
   function openHelperPath() {
     document.getElementById('helper-path')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
@@ -87,6 +169,16 @@ export default function App() {
       window.print();
       window.setTimeout(() => setPrintTargetId(null), 250);
     }, 50);
+  }
+
+  async function copyText(id: string, text: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedId(id);
+      window.setTimeout(() => setCopiedId(null), 1600);
+    } catch {
+      setCopiedId(null);
+    }
   }
 
   return (
@@ -122,7 +214,7 @@ export default function App() {
           </div>
           <div className="mission-card">
             <Sparkles aria-hidden="true" />
-            <p className="eyebrow">v0.2 public toolkit</p>
+            <p className="eyebrow">v0.3 local bridge</p>
             <h2>One calm map. One next step.</h2>
             <div className="mission-steps">
               {missionSteps.map((step, index) => (
@@ -168,8 +260,8 @@ export default function App() {
           <input
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Search packets and skills, like rent, food, email, scam, pet..."
-            aria-label="Search packets and skills"
+            placeholder="Search packets, skills, and resource worksheets: rent, food, pet, ID..."
+            aria-label="Search KindBridge content"
           />
         </div>
         <div className="quick-chips" aria-label="Quick searches">
@@ -194,6 +286,7 @@ export default function App() {
         </div>
         <div className="helper-actions">
           <button onClick={() => setActiveSection('help')}>Name the need</button>
+          <button onClick={() => setActiveSection('resources')}>Find local places</button>
           <button onClick={() => setActiveSection('packets')}>Print a packet</button>
           <button onClick={() => setActiveSection('calm')}>Calm first</button>
           <button onClick={() => setActiveSection('receipts')}>Track a receipt</button>
@@ -206,7 +299,7 @@ export default function App() {
             <p className="eyebrow">HelpFinder</p>
             <h2>Tell the system what is happening in normal words.</h2>
             <p>
-              Pick a situation. KindBridge turns it into help categories, search terms, documents to gather, and plain scripts.
+              Pick a situation. KindBridge turns it into help categories, search terms, documents to gather, and plain words to use.
             </p>
             <div className="topic-list">
               {helpTopics.map((topic) => (
@@ -234,8 +327,8 @@ export default function App() {
             <TagList items={selectedHelp.searchTerms} />
             <h3>Words to use</h3>
             <ul className="script-list">
-              {selectedHelp.scripts.map((script) => (
-                <li key={script}>“{script}”</li>
+              {selectedHelp.scripts.map((line) => (
+                <li key={line}>“{line}”</li>
               ))}
             </ul>
             <p className="boundary">{selectedHelp.boundary}</p>
@@ -275,6 +368,61 @@ export default function App() {
             ))}
           </div>
           {filteredPackets.length === 0 && <EmptyState label="No KindPackets matched that search yet." />}
+        </section>
+      )}
+
+      {activeSection === 'resources' && (
+        <section className="content-grid">
+          <SectionIntro
+            eyebrow="Local Resources"
+            title="Turn KindBridge into a map for your town."
+            copy="These worksheets help volunteers collect real local contacts without turning the site into a database. Print them, copy the search terms, call places, and verify details before sharing."
+          />
+          <div className="resource-workflow panel">
+            <FileText aria-hidden="true" />
+            <div>
+              <p className="eyebrow">Local map rule</p>
+              <h3>Do not guess. Verify, date it, and leave room for unknowns.</h3>
+              <p>
+                A useful local list should show who was contacted, when details were checked, what someone should bring, and what is still unknown.
+              </p>
+            </div>
+          </div>
+          <div className="cards two-card-grid">
+            {filteredResources.map((item) => (
+              <article className="card resource-card" key={item.id}>
+                <p className="emoji">{item.emoji}</p>
+                <h3>{item.title}</h3>
+                <p>{item.useWhen}</p>
+                <h4>Places to check</h4>
+                <TagList items={item.placesToCheck} />
+                <h4>Search terms</h4>
+                <TagList items={item.searchTerms} />
+                <h4>Ask this</h4>
+                <p className="quote">“{item.ask}”</p>
+                <h4>Verify before sharing</h4>
+                <ul className="verify-list">
+                  {item.verify.map((detail) => (
+                    <li key={detail}>{detail}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+          {filteredResources.length === 0 && <EmptyState label="No resource worksheets matched that search yet." />}
+          <div className="cards two-card-grid">
+            {copyLines.map((item) => (
+              <article className="card copy-card" key={item.id}>
+                <Copy aria-hidden="true" />
+                <h3>{item.title}</h3>
+                <p>{item.context}</p>
+                <p className="quote">“{item.body}”</p>
+                <button className="copy-button" onClick={() => copyText(item.id, item.body)}>
+                  {copiedId === item.id ? 'Copied' : 'Copy words'}
+                </button>
+              </article>
+            ))}
+          </div>
         </section>
       )}
 
@@ -333,7 +481,7 @@ export default function App() {
         <section className="content-grid two-column">
           <div className="panel">
             <p className="eyebrow">Crisis-to-Calm</p>
-            <h2>Slow down. Get safe. Choose one next step.</h2>
+            <h2>Slow down and choose the next safe step.</h2>
             <p>
               This is not therapy, diagnosis, emergency care, or a substitute for professional help. It is a small grounding path for when the mind has too many tabs open.
             </p>
