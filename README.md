@@ -20,6 +20,18 @@ The current goal is simple:
 - Help someone support a neighbor, elder, friend, family member, or pet owner without taking over their choices.
 - Let communities track needs, promises, and delivered help without drama.
 
+## V0.4 Pocket Plan direction
+
+The v0.4 direction adds a Pocket Plan concept: a one-page next-step plan someone can make quickly, copy, print, and take with them.
+
+- Choose one situation.
+- Add one person or place to contact.
+- Write one tiny promise for today.
+- Include the first step, things to gather, plain words to use, and a receipt line.
+- Keep it local-first with no account, no server storage, and no tracking.
+
+The first v0.4 source checkpoint includes `docs/v0.4-pocket-plan.md` and `src/v04.css`. The app wiring is intentionally staged so the green build stays protected while the module is added cleanly.
+
 ## V0.3 local bridge pass
 
 The v0.3 pass adds the missing bridge between general guidance and real local usefulness:
