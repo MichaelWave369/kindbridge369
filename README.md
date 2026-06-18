@@ -10,14 +10,25 @@ KindBridge369 is a no-cost, open-source help portal for people who need plain-la
 
 KindBridge369 is designed to run as a static React site on GitHub Pages. It does not require accounts, payments, tracking, or a backend to be useful.
 
-The v0.1 goal is simple:
+The current goal is simple:
 
 - Help someone name what kind of help they need.
 - Give them a calm first step.
 - Show what documents or information to gather.
 - Provide plain scripts for calls, emails, and visits.
 - Offer printable packets for common hard moments.
+- Help someone support a neighbor, elder, friend, family member, or pet owner without taking over their choices.
 - Let communities track needs, promises, and delivered help without drama.
+
+## V0.2 public toolkit pass
+
+The v0.2 pass makes the homepage feel more like a usable table-side toolkit:
+
+- A three-step mission card: name the need, gather what helps, take one safe step.
+- A visible safety-first boundary for urgent danger or professional help situations.
+- Quick search chips for common needs like rent, food, scams, pets, ID, resumes, and elder tech.
+- A "help someone else" path for people assisting a neighbor, family member, elder, friend, or community member.
+- Cleaner single-packet printing so a person can print one KindPacket instead of every card.
 
 ## Core modules
 
