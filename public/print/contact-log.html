@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KindBridge369 Contact Log</title>
+    <style>
+      :root { --ink:#10211b; --muted:#5f6963; --paper:#fbf7ed; --line:#d8d0bf; --green:#17382e; }
+      * { box-sizing: border-box; }
+      body { margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color:var(--ink); background:var(--paper); line-height:1.45; }
+      main { width:min(900px, calc(100vw - 28px)); margin:0 auto; padding:34px 0 56px; }
+      .eyebrow { color:#3b6a58; font-size:.78rem; font-weight:900; letter-spacing:.22em; text-transform:uppercase; }
+      h1 { margin:10px 0 10px; font-size:clamp(2.2rem, 7vw, 4.8rem); line-height:.96; letter-spacing:-.07em; }
+      .lead { max-width:720px; color:#394840; font-size:1.08rem; }
+      .sheet { margin-top:24px; padding:24px; border:1px solid var(--line); border-radius:26px; background:#fffdf8; }
+      h2 { margin:0 0 12px; font-size:1.2rem; }
+      table { width:100%; border-collapse:collapse; margin-top:12px; font-size:.95rem; }
+      th, td { border:1px solid var(--line); padding:10px; text-align:left; vertical-align:top; }
+      th { background:#edf5e8; }
+      td { height:58px; }
+      .prompt-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px; margin-top:14px; }
+      .prompt { min-height:78px; padding:12px; border:1px dashed var(--line); border-radius:16px; background:#fffaf0; }
+      .print { margin-top:20px; display:inline-flex; padding:10px 14px; border-radius:999px; color:#fffdf8; background:var(--green); font-weight:900; text-decoration:none; }
+      .note { margin-top:18px; color:var(--muted); }
+      @media print { body{background:white;} main{width:100%; padding:0;} .print{display:none;} .sheet{break-inside:avoid; border-color:#999;} }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="eyebrow">KindBridge369 · v0.7 follow-up kit</div>
+      <h1>Contact Log</h1>
+      <p class="lead">Use this page to keep track of calls, visits, messages, and follow-up steps. Write only what is useful. Avoid private details that do not help the next step.</p>
+      <a class="print" href="javascript:window.print()">Print this page</a>
+
+      <section class="sheet">
+        <h2>Follow-up tracker</h2>
+        <table>
+          <thead>
+            <tr><th>Date</th><th>Place or person</th><th>Contact method</th><th>What they said</th><th>Next step</th></tr>
+          </thead>
+          <tbody>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="sheet">
+        <h2>Helpful prompts</h2>
+        <div class="prompt-grid">
+          <div class="prompt"><strong>Ask:</strong><br />What is the best next step from here?</div>
+          <div class="prompt"><strong>Confirm:</strong><br />What should I bring or have ready?</div>
+          <div class="prompt"><strong>Write:</strong><br />Who did I talk to, and when should I follow up?</div>
+        </div>
+      </section>
+
+      <p class="note">Kind rule: keeping a short record can reduce stress later. It does not need to be perfect to be useful.</p>
+    </main>
+  </body>
+</html>
