@@ -15,10 +15,20 @@ The current goal is simple:
 - Help someone name what kind of help they need.
 - Give them a calm first step.
 - Show what documents or information to gather.
-- Provide plain scripts for calls, emails, and visits.
+- Provide plain words for calls, emails, and visits.
 - Offer printable packets for common hard moments.
 - Help someone support a neighbor, elder, friend, family member, or pet owner without taking over their choices.
 - Let communities track needs, promises, and delivered help without drama.
+
+## V0.3 local bridge pass
+
+The v0.3 pass adds the missing bridge between general guidance and real local usefulness:
+
+- A new **Local Resources** module.
+- Resource worksheet cards for food help, utility help, elder tech helpers, and pet support.
+- Verification checklists so people do not share stale or guessed information.
+- Search terms and questions volunteers can use when calling local places.
+- Copyable plain-word starters for calling, confirming details, asking for a next place, and helping someone without taking over.
 
 ## V0.2 public toolkit pass
 
@@ -34,6 +44,7 @@ The v0.2 pass makes the homepage feel more like a usable table-side toolkit:
 
 - **HelpFinder** — turns plain-language problems into useful help categories and search terms.
 - **KindPackets** — printable one-page guides for hard moments.
+- **Local Resources** — worksheets for building verified local help maps without a backend.
 - **ElderTech Bridge** — gentle tech support cards for elders and families.
 - **PetHelp** — discovery prompts and steps for pet food, lost pets, low-cost care, and foster support.
 - **SkillSeed** — tiny practical skill cards for resumes, email, budgets, basic tools, and more.
