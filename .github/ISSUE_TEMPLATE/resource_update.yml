@@ -1,0 +1,68 @@
+name: Resource update
+
+description: Suggest a local resource, correction, or verification receipt.
+
+title: "Resource update: "
+
+labels: ["resource", "verification-needed"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping KindBridge369 stay useful. Please avoid posting private personal information.
+
+  - type: input
+    id: area
+    attributes:
+      label: Area covered
+      description: City, county, state, or community.
+      placeholder: Example: Boyd County, KY
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Food
+        - Utilities
+        - Housing
+        - Transportation
+        - Elder tech
+        - Pet help
+        - Forms and paperwork
+        - Job search
+        - Crisis support
+        - Legal aid
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: resource
+    attributes:
+      label: Resource details
+      description: Name, what they help with, phone, website, address, hours, what to bring, and eligibility notes if known.
+    validations:
+      required: true
+
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification receipt
+      description: How did you verify this? Phone call, official website, flyer, email, in-person, etc.
+      placeholder: Checked official website on YYYY-MM-DD.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Privacy and claim boundary
+      options:
+        - label: I did not include private personal information.
+          required: true
+        - label: I understand this should be verified before being presented as current local guidance.
+          required: true
