@@ -32,6 +32,23 @@ const sections = [
   { id: 'receipts', label: 'Receipts', icon: ClipboardCheck }
 ] as const;
 
+const quickSearches = ['rent', 'food', 'power bill', 'scam', 'pet', 'ID', 'resume', 'elder tech'];
+
+const missionSteps = [
+  {
+    title: 'Name the need',
+    copy: 'Turn a hard moment into plain words without shame.'
+  },
+  {
+    title: 'Gather what helps',
+    copy: 'List the papers, details, screenshots, and dates that may matter.'
+  },
+  {
+    title: 'Take one safe step',
+    copy: 'Use a script, print a packet, call a resource, or ask someone steady.'
+  }
+];
+
 type SectionId = (typeof sections)[number]['id'];
 
 function contains(value: string, query: string) {
@@ -42,22 +59,35 @@ export default function App() {
   const [activeSection, setActiveSection] = useState<SectionId>('help');
   const [selectedHelpId, setSelectedHelpId] = useState(helpTopics[0].id);
   const [query, setQuery] = useState('');
+  const [printTargetId, setPrintTargetId] = useState<string | null>(null);
 
   const selectedHelp = helpTopics.find((topic) => topic.id === selectedHelpId) ?? helpTopics[0];
 
   const filteredPackets = useMemo(() => {
     if (!query.trim()) return kindPackets;
     return kindPackets.filter((packet) =>
-      contains(`${packet.title} ${packet.forMoment} ${packet.sayThis}`, query)
+      contains(`${packet.title} ${packet.forMoment} ${packet.sayThis} ${packet.gather.join(' ')}`, query)
     );
   }, [query]);
 
   const filteredSkills = useMemo(() => {
     if (!query.trim()) return skillSeeds;
     return skillSeeds.filter((skill) =>
-      contains(`${skill.title} ${skill.tenMinuteVersion} ${skill.oneHourVersion}`, query)
+      contains(`${skill.title} ${skill.tenMinuteVersion} ${skill.oneHourVersion} ${skill.tools.join(' ')}`, query)
     );
   }, [query]);
+
+  function openHelperPath() {
+    document.getElementById('helper-path')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function printPacket(packetId: string) {
+    setPrintTargetId(packetId);
+    window.setTimeout(() => {
+      window.print();
+      window.setTimeout(() => setPrintTargetId(null), 250);
+    }, 50);
+  }
 
   return (
     <main>
@@ -85,14 +115,26 @@ export default function App() {
               <button className="secondary" onClick={() => setActiveSection('packets')}>
                 Print a KindPacket
               </button>
+              <button className="ghost" onClick={openHelperPath}>
+                Help someone else
+              </button>
             </div>
           </div>
           <div className="mission-card">
             <Sparkles aria-hidden="true" />
-            <h2>V0.1 mission</h2>
-            <p>
-              Remove the fog from the next step. No account. No payment. No tracking. Just calm discovery tools people can copy, print, translate, and improve.
-            </p>
+            <p className="eyebrow">v0.2 public toolkit</p>
+            <h2>One calm map. One next step.</h2>
+            <div className="mission-steps">
+              {missionSteps.map((step, index) => (
+                <article key={step.title}>
+                  <span>{index + 1}</span>
+                  <div>
+                    <h3>{step.title}</h3>
+                    <p>{step.copy}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
       </header>
@@ -113,14 +155,49 @@ export default function App() {
         })}
       </section>
 
-      <section className="search-strip">
-        <Search aria-hidden="true" />
-        <input
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search packets and skills, like rent, food, email, scam, pet..."
-          aria-label="Search KindBridge content"
-        />
+      <aside className="safety-strip" role="note">
+        <ShieldCheck aria-hidden="true" />
+        <p>
+          <strong>Safety first:</strong> if someone is in immediate danger, may hurt themselves or someone else, or needs urgent medical, legal, or protective help, contact local emergency services or a qualified crisis resource now.
+        </p>
+      </aside>
+
+      <section className="search-area" aria-label="Search KindBridge content">
+        <div className="search-strip">
+          <Search aria-hidden="true" />
+          <input
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search packets and skills, like rent, food, email, scam, pet..."
+            aria-label="Search packets and skills"
+          />
+        </div>
+        <div className="quick-chips" aria-label="Quick searches">
+          {quickSearches.map((item) => (
+            <button key={item} onClick={() => setQuery(item)}>
+              {item}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section className="helper-path" id="helper-path">
+        <div className="helper-heading">
+          <Wrench aria-hidden="true" />
+          <div>
+            <p className="eyebrow">Helping someone else?</p>
+            <h2>Use KindBridge as a small table-side toolkit.</h2>
+            <p>
+              Sit with the person, name the moment together, print or copy one packet, and write down the next receipt. Do not pressure them. Help them choose.
+            </p>
+          </div>
+        </div>
+        <div className="helper-actions">
+          <button onClick={() => setActiveSection('help')}>Name the need</button>
+          <button onClick={() => setActiveSection('packets')}>Print a packet</button>
+          <button onClick={() => setActiveSection('calm')}>Calm first</button>
+          <button onClick={() => setActiveSection('receipts')}>Track a receipt</button>
+        </div>
       </section>
 
       {activeSection === 'help' && (
@@ -175,7 +252,10 @@ export default function App() {
           />
           <div className="cards three-column">
             {filteredPackets.map((packet) => (
-              <article className="card printable" key={packet.id}>
+              <article
+                className={printTargetId && printTargetId !== packet.id ? 'card printable print-hidden' : 'card printable'}
+                key={packet.id}
+              >
                 <p className="emoji">{packet.emoji}</p>
                 <h3>{packet.title}</h3>
                 <p>{packet.forMoment}</p>
@@ -188,12 +268,13 @@ export default function App() {
                 <h4>Do not panic</h4>
                 <p>{packet.dontPanic}</p>
                 <p className="boundary">{packet.professionalGate}</p>
-                <button className="print-button" onClick={() => window.print()}>
-                  <Printer aria-hidden="true" /> Print
+                <button className="print-button" onClick={() => printPacket(packet.id)}>
+                  <Printer aria-hidden="true" /> Print this packet
                 </button>
               </article>
             ))}
           </div>
+          {filteredPackets.length === 0 && <EmptyState label="No KindPackets matched that search yet." />}
         </section>
       )}
 
@@ -244,6 +325,7 @@ export default function App() {
               </article>
             ))}
           </div>
+          {filteredSkills.length === 0 && <EmptyState label="No SkillSeeds matched that search yet." />}
         </section>
       )}
 
@@ -319,6 +401,10 @@ function TagList({ items }: { items: string[] }) {
       ))}
     </div>
   );
+}
+
+function EmptyState({ label }: { label: string }) {
+  return <p className="empty-state">{label} Try another word or open an issue to add a new guide.</p>;
 }
 
 function SimpleCardGrid({ cards }: { cards: { id: string; emoji: string; title: string; summary: string; steps: string[] }[] }) {
