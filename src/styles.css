@@ -172,11 +172,20 @@ h4 {
   color: #17201b;
 }
 
+.hero-actions .ghost {
+  background: rgba(255, 255, 255, 0.52);
+  border: 1px solid rgba(23, 32, 27, 0.1);
+  color: #17201b;
+}
+
 .mission-card,
 .panel,
 .card,
 .receipt,
-.search-strip {
+.search-strip,
+.safety-strip,
+.helper-path,
+.empty-state {
   backdrop-filter: blur(16px);
   background: rgba(255, 255, 255, 0.72);
   border: 1px solid rgba(23, 32, 27, 0.1);
@@ -187,7 +196,6 @@ h4 {
 .mission-card {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   min-height: 360px;
   padding: 1.4rem;
 }
@@ -195,8 +203,55 @@ h4 {
 .mission-card svg {
   color: #c47d25;
   height: 2.5rem;
-  margin-bottom: auto;
+  margin-bottom: 1.3rem;
   width: 2.5rem;
+}
+
+.mission-card h2 {
+  margin-bottom: 1.1rem;
+}
+
+.mission-steps {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: auto;
+}
+
+.mission-steps article {
+  align-items: flex-start;
+  background: #fff8ed;
+  border: 1px solid rgba(23, 32, 27, 0.08);
+  border-radius: 1.2rem;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.8rem;
+}
+
+.mission-steps span {
+  align-items: center;
+  background: #e8f0db;
+  border-radius: 999px;
+  color: #2e4d32;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-weight: 900;
+  height: 1.75rem;
+  justify-content: center;
+  width: 1.75rem;
+}
+
+.mission-steps h3,
+.mission-steps p {
+  margin: 0;
+}
+
+.mission-steps h3 {
+  font-size: 1rem;
+}
+
+.mission-steps p {
+  color: #4c564f;
+  font-size: 0.92rem;
 }
 
 .section-tabs {
@@ -229,19 +284,45 @@ h4 {
 .section-tabs svg,
 .search-strip svg,
 .print-button svg,
-footer svg {
+footer svg,
+.safety-strip svg,
+.helper-path svg {
   height: 1rem;
   width: 1rem;
+}
+
+.safety-strip {
+  align-items: flex-start;
+  display: flex;
+  gap: 0.7rem;
+  margin: 0 auto 1rem;
+  max-width: 1180px;
+  padding: 0.85rem 1rem;
+  width: calc(100% - clamp(2rem, 8vw, 8rem));
+}
+
+.safety-strip svg {
+  color: #7a271f;
+  flex: 0 0 auto;
+  margin-top: 0.2rem;
+}
+
+.safety-strip p {
+  color: #4c564f;
+  margin: 0;
+}
+
+.search-area {
+  margin: 0 auto 1rem;
+  max-width: 1180px;
+  width: calc(100% - clamp(2rem, 8vw, 8rem));
 }
 
 .search-strip {
   align-items: center;
   display: flex;
   gap: 0.7rem;
-  margin: 0 auto 1rem;
-  max-width: 1180px;
   padding: 0.8rem 1rem;
-  width: calc(100% - clamp(2rem, 8vw, 8rem));
 }
 
 .search-strip input {
@@ -251,6 +332,77 @@ footer svg {
   flex: 1;
   min-width: 0;
   outline: 0;
+}
+
+.quick-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.65rem;
+}
+
+.quick-chips button {
+  background: #fff8ed;
+  border: 1px solid rgba(23, 32, 27, 0.1);
+  border-radius: 999px;
+  color: #4c564f;
+  font-size: 0.88rem;
+  font-weight: 800;
+  padding: 0.45rem 0.7rem;
+}
+
+.helper-path {
+  align-items: center;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin: 0 auto 1rem;
+  max-width: 1180px;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  scroll-margin-top: 1rem;
+  width: calc(100% - clamp(2rem, 8vw, 8rem));
+}
+
+.helper-heading {
+  align-items: flex-start;
+  display: flex;
+  gap: 0.8rem;
+}
+
+.helper-heading svg {
+  background: #e8f0db;
+  border-radius: 999px;
+  color: #2e4d32;
+  flex: 0 0 auto;
+  height: 2.2rem;
+  padding: 0.55rem;
+  width: 2.2rem;
+}
+
+.helper-heading h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  margin-bottom: 0.45rem;
+}
+
+.helper-heading p:last-child {
+  color: #4c564f;
+  margin-bottom: 0;
+  max-width: 780px;
+}
+
+.helper-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  justify-content: flex-end;
+}
+
+.helper-actions button {
+  background: #17201b;
+  border-radius: 999px;
+  color: #fff8ed;
+  font-weight: 850;
+  padding: 0.65rem 0.9rem;
 }
 
 .content-grid {
@@ -268,7 +420,8 @@ footer svg {
 .panel,
 .card,
 .receipt,
-.section-intro {
+.section-intro,
+.empty-state {
   padding: clamp(1.1rem, 2vw, 1.5rem);
 }
 
@@ -393,6 +546,12 @@ ul {
   padding: 0.7rem 1rem;
 }
 
+.empty-state {
+  color: #4c564f;
+  font-weight: 750;
+  margin: 0;
+}
+
 .calm-list {
   display: grid;
   gap: 0.7rem;
@@ -487,12 +646,17 @@ footer p {
   .hero-grid,
   .two-column,
   .three-column,
-  .receipt-board {
+  .receipt-board,
+  .helper-path {
     grid-template-columns: 1fr;
   }
 
   .mission-card {
     min-height: auto;
+  }
+
+  .helper-actions {
+    justify-content: flex-start;
   }
 }
 
@@ -504,10 +668,13 @@ footer p {
   .topbar,
   .hero,
   .section-tabs,
-  .search-strip,
+  .search-area,
+  .safety-strip,
+  .helper-path,
   footer,
   .section-intro,
-  .print-button {
+  .print-button,
+  .empty-state {
     display: none !important;
   }
 
@@ -527,7 +694,8 @@ footer p {
     margin: 0 0 1rem;
   }
 
-  .card:not(.printable) {
-    display: none;
+  .card:not(.printable),
+  .print-hidden {
+    display: none !important;
   }
 }
