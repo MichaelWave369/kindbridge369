@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>KindBridge369 Town Starter Kit</title>
+    <style>
+      body { margin: 0; font-family: Arial, sans-serif; color: #10211b; background: #fbf7ed; line-height: 1.45; }
+      main { width: min(980px, calc(100vw - 32px)); margin: 0 auto; padding: 32px 0 56px; }
+      a { color: #17382e; font-weight: 700; }
+      h1 { margin: 8px 0 10px; font-size: clamp(2.3rem, 8vw, 4.7rem); line-height: 0.95; letter-spacing: -0.06em; }
+      h2 { margin: 0 0 10px; font-size: 1.35rem; }
+      .eyebrow { color: #3b6a58; font-size: 0.78rem; font-weight: 900; letter-spacing: 0.18em; text-transform: uppercase; }
+      .lead { max-width: 720px; color: #394840; font-size: 1.08rem; }
+      .topbar { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; margin-bottom: 24px; }
+      button { border: 0; border-radius: 999px; padding: 12px 16px; color: #fffdf8; background: #17382e; font: inherit; font-weight: 900; cursor: pointer; }
+      .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 24px; }
+      .card { padding: 16px; border: 1px solid #ded8ca; border-radius: 20px; background: #fffdf8; }
+      ul { margin: 8px 0 0; padding-left: 20px; color: #4d5a53; }
+      .table { grid-column: 1 / -1; }
+      table { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; }
+      th, td { border: 1px solid #cfc8b9; padding: 8px; text-align: left; vertical-align: top; }
+      th { background: #edf5e8; }
+      .note { margin-top: 16px; padding: 14px; border: 1px solid #d9e8d2; border-radius: 18px; background: #edf5e8; color: #31513f; }
+      @media (max-width: 760px) { .topbar, .grid { display: block; } .card { margin-top: 12px; } }
+      @media print { body { background: white; } main { width: 100%; padding: 0; } .back, .lead, button { display: none; } .card { border: 1px solid #000; border-radius: 0; break-inside: avoid; } th, td { border-color: #000; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="back"><a href="index.html">Back to Print Shelf</a></p>
+      <div class="topbar">
+        <div>
+          <div class="eyebrow">KindBridge369 Town Starter Kit</div>
+          <h1>Start a local help map.</h1>
+          <p class="lead">Use this page to begin a simple, verified list for your town, church, library, school, workplace, RV park, or neighborhood table.</p>
+        </div>
+        <button onclick="window.print()">Print</button>
+      </div>
+
+      <section class="grid" aria-label="Town Starter Kit">
+        <div class="card">
+          <h2>Start with six buckets</h2>
+          <ul>
+            <li>Food and basic supplies</li>
+            <li>Utility or bill support</li>
+            <li>ID, forms, and paperwork</li>
+            <li>Elder tech and scam prevention</li>
+            <li>Pet food, low-cost care, lost pets</li>
+            <li>Rides, laundry, showers, library help</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h2>Verification rule</h2>
+          <ul>
+            <li>Call or check the source directly.</li>
+            <li>Write the date checked.</li>
+            <li>Write what is unknown.</li>
+            <li>Do not promise eligibility.</li>
+            <li>Refresh the list on a schedule.</li>
+          </ul>
+        </div>
+
+        <div class="card table">
+          <h2>Local help map worksheet</h2>
+          <table>
+            <thead><tr><th>Need bucket</th><th>Place or person</th><th>Phone / website</th><th>What to bring</th><th>Date checked</th></tr></thead>
+            <tbody>
+              <tr><td>Food</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>Utilities</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>Forms / ID</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>Elder tech</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>Pet support</td><td></td><td></td><td></td><td></td></tr>
+              <tr><td>Other</td><td></td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h2>Plain script</h2>
+          <p>I am helping build a simple local help list. Can you confirm your hours, what kind of help you offer, who can ask, and what someone should bring?</p>
+        </div>
+
+        <div class="card">
+          <h2>Kind boundary</h2>
+          <p>This list helps people find doors to knock on. It should not pretend to decide outcomes, replace professionals, or guarantee service.</p>
+        </div>
+      </section>
+
+      <p class="note"><strong>Best first version:</strong> one page, ten verified entries, checked monthly. Small and true beats big and stale.</p>
+    </main>
+  </body>
+</html>
